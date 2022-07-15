@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiCalls";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     width: 100vw;
@@ -53,22 +54,29 @@ const Button = styled.button`
 const Error = styled.span`
     color: red;
 `;
-const Link = styled.a`
+const LinkComponent = styled.span`
     margin: 5px 0;
     font-size: 12px;
-    text-decoration: underline;
     cursor: pointer;
+    color: #000000;
 `;
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isError, setIsError] = useState("");
     const dispatch = useDispatch();
     const { isFetching, error } = useSelector(state => state.user);
 
-    const handleClick = (e) => {
+    const HandleClick = (e) => {
         e.preventDefault();
         login(dispatch, {username, password});
+        if(error){
+            setIsError(true);
+            setTimeout(() => {
+                setIsError(false);
+                }, 3000);
+        }
     }; 
 
     return (
@@ -82,10 +90,14 @@ const Login = () => {
                     <Input placeholder="Password" type="password"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Button onClick={handleClick} disabled={isFetching}>LOG IN</Button>
-                    {error && <Error>Failed to log in!</Error>}
-                    <Link>FORGOT PASSWORD?</Link>
-                    <Link>CREATE A NEW ACCOUNT</Link>
+                    <Button onClick={HandleClick} disabled={isFetching}>LOG IN</Button>
+                    {isError && <Error>Failed to log in!</Error>}
+                    <Link to={"/"}>
+                        <LinkComponent>FORGOT PASSWORD?</LinkComponent>
+                    </Link>
+                    <Link to={"/register"}>
+                        <LinkComponent>CREATE A NEW ACCOUNT</LinkComponent>
+                    </Link>
                 </Form>
             </Wrapper>
         </Container>

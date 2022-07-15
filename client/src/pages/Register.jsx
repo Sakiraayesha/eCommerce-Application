@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import { publicRequest } from "../requestMethods";
+import { useNavigate } from "react-router";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
@@ -48,20 +51,49 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+    const [address, setAddress] = useState({});
+    const [inputs, setInputs] = useState(null);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try{
+            await publicRequest.post("/auth/register", {...inputs, address});
+            navigate("/login");
+        }
+        catch(err){
+            console.log(err);
+        }
+    };
+
+    const handleAddress = (e) => {
+        setAddress((prev) => {
+            return {...prev, [e.target.name] : e.target.value };
+            }
+        );
+    }
+
+    const handleChange = (e) => {
+        setInputs((prev) => {
+            return {...prev, [e.target.name] : e.target.value };
+            }
+        );
+    }
+
     return (
         <Container>
             <Wrapper>
                 <Title>CREATE AN ACCOUNT</Title>
-                <Form>
-                    <Input placeholder="Fisrt Name" />
-                    <Input placeholder="Last Name" />
-                    <Input placeholder="Username" />
-                    <Input placeholder="Email" />
-                    <Input placeholder="Password" />
-                    <Input placeholder="Confirm Password" />
+                <Form onSubmit={handleSubmit}>
+                    <Input placeholder="Username" type="text" name="username" onChange={handleChange} />
+                    <Input placeholder="Email" type="email" name="email" onChange={handleChange} />
+                    <Input placeholder="City" type="text" name="city" onChange={handleAddress} />
+                    <Input placeholder="Country" type="text" name="country" onChange={handleAddress} />
+                    <Input placeholder="Phone" type="text" name="phone" onChange={handleChange} />
+                    <Input placeholder="Password" type="password" name="password" onChange={handleChange} />
                     <Agreement>By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY.</b></Agreement>
-                    <Button>CREATE</Button>
+                    <Button type="submit">CREATE</Button>
                 </Form>
             </Wrapper>
         </Container>

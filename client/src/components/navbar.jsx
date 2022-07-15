@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
+import { resetCart } from "../redux/cartRedux";
 
 const Container = styled.div`
     height: 60px;
@@ -91,6 +92,7 @@ const Navbar = () => {
 
     const handleLogOut = () => {
         logoutUser(logoutDispatch);
+        logoutDispatch(resetCart());
     }
 
     return (
