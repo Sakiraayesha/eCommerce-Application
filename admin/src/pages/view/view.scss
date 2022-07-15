@@ -1,0 +1,94 @@
+.single{
+    display: flex;
+    width: 100%;
+
+    .singleContainer{
+        flex: 6;
+
+        .top{
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+
+            .left{
+                flex: 1;
+                padding: 20px;
+                position: relative;
+                -webkit-box-shadow: 2px 4px 12px 0px #A8A8A8; 
+                box-shadow: 2px 4px 12px 0px #A8A8A8;
+
+                .editButton{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    padding: 5px;
+                    font-size: 14px;
+                    color: rgb(4, 126, 163);
+                    background-color: rgba(234, 247, 248, 0.986);
+                    cursor: pointer;
+                    border-radius: 0 0 0 5px;
+                }
+
+                .item{
+                    display: flex;
+                    gap: 20px;
+                    flex-direction: column;
+
+                    .itemImg{
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        margin: auto;
+                    }
+
+                    .details{
+                        .itemTitle{
+                            margin-bottom: 10px;
+                            color: #555;
+                        }
+
+                        .detailItem {
+                            margin-bottom: 10px;
+                            font-size: 14px;
+
+                            .itemkey{
+                                font-weight: bold;
+                                color: gray;
+                                margin-right: 5px;
+                            }
+
+                            .itemValue{
+                                font-weight: 300;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .right{
+                flex: 2;
+
+                .chart {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .bottom{
+            -webkit-box-shadow: 2px 4px 12px 0px #A8A8A8; 
+            box-shadow: 2px 4px 12px 0px #A8A8A8;
+            padding: 20px;
+            margin: 10px 20px;
+        }
+
+        .title{
+            font-size: 16px;
+            color: lightgray;
+            margin-bottom: 20px;    
+        }
+    }
+}
